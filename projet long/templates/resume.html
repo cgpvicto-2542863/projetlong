@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Pizzeria - Résumé de la commande</title>
+</head>
+<body>
+  <h1>Résumé de votre commande</h1>
+
+  <h2>Client</h2>
+  <p>Nom : {{ nom }}</p>
+  <p>Téléphone : {{ telephone }}</p>
+  <p>Adresse : {{ adresse }}</p>
+
+  <h2>Pizza</h2>
+  <p>Croûte : {{ nom_croute }}</p>
+  <p>Sauce : {{ nom_sauce }}</p>
+  <p>Garnitures :</p>
+  <ul>
+    {% for g in noms_garnitures %}
+      <li>{{ g }}</li>
+    {% else %}
+      <li>Aucune garniture</li>
+    {% endfor %}
+  </ul>
+
+  <form method="post" action="/ajouter">
+    <input type="hidden" name="nom" value="{{ nom }}">
+    <input type="hidden" name="telephone" value="{{ telephone }}">
+    <input type="hidden" name="adresse" value="{{ adresse }}">
+    <input type="hidden" name="croute" value="{{ id_croute }}">
+    <input type="hidden" name="sauce" value="{{ id_sauce }}">
+    {% for id_g in garnitures %}
+      <input type="hidden" name="garnitures" value="{{ id_g }}">
+    {% endfor %}
+    <button type="submit">Confirmer la commande</button>
+  </form>
+
+  <p><a href="/">Modifier la commande</a></p>
+</body>
+</html>

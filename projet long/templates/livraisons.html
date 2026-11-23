@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Livraisons en attente</title>
+</head>
+
+<body>
+    <h1>Commandes en attente de livraison</h1>
+
+    {% for c in data %}
+    <div>
+        <div>Commande no : {{ c.id_commande }}</div>
+        <div>Client : {{ c.nom }}</div>
+        <div>Téléphone : {{ c.telephone }}</div>
+        <div>Adresse : {{ c.adresse_livraison }}</div>
+        <div>Croûte : {{ c.nom_croute }}</div>
+        <div>Sauce : {{ c.nom_sauce }}</div>
+        <div>Garnitures : {{ c.garnitures }}</div>
+        <form method="post" action="/livrer/{{ c.id_attente }}">
+            <button type="submit">Livrer</button>
+        </form>
+        <hr>
+    </div>
+    {% endfor %}
+
+    <a href="/">Nouvelle commande</a>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Pizzeria - Commande</title>
+</head>
+<body>
+  <h1>Commander une pizza</h1>
+
+  <form method="post" action="/resume">
+    <h2>Vos informations</h2>
+    <p>
+      <label>Nom :</label>
+      <input type="text" name="nom" required>
+    </p>
+    <p>
+      <label>Téléphone :</label>
+      <input type="text" name="telephone" required>
+    </p>
+    <p>
+      <label>Adresse de livraison :</label>
+      <input type="text" name="adresse" required>
+    </p>
+
+    <h2>Votre pizza</h2>
+    <p>
+      <label>Croûte :</label>
+      <select name="croute" required>
+        {% for c in croutes %}
+          <option value="{{ c.id }}">{{ c.nom_croute }}</option>
+        {% endfor %}
+      </select>
+    </p>
+    <p>
+      <label>Sauce :</label>
+      <select name="sauce" required>
+        {% for s in sauces %}
+          <option value="{{ s.id }}">{{ s.nom_sauce }}</option>
+        {% endfor %}
+      </select>
+    </p>
+
+    <p><label>Garnitures (maximum 4) :</label></p>
+    {% for g in garnitures %}
+      <input type="checkbox" name="garnitures" value="{{ g.id }}"> {{ g.nom_garniture }}<br>
+    {% endfor %}
+
+    <p><button type="submit">Voir le résumé</button></p>
+  </form>
+
+  <p><a href="/livraisons">Voir les livraisons en attente</a></p>
+</body>
+</html>
