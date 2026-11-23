@@ -16,6 +16,7 @@ db = mysql.connector.connect(user=os.getenv("DB_USER"),
 
 
 @app.route('/')
+#page d'acceuil pour faire une commande
 def index():
     curseur = db.cursor(dictionary=True)
     curseur.execute("SELECT * FROM croutes")
@@ -25,7 +26,9 @@ def index():
     curseur.execute("SELECT * FROM garnitures")
     garnitures = curseur.fetchall()
     curseur.close()
-    return render_template("index.html", croutes=croutes, sauces=sauces, garnitures=garnitures)
+    return render_template("index.html", croutes=croutes, sauces=sauces, garnitures=garnitures)<
+  
+#ajouter la commande dans la liste des commandes
 
 @app.route('/ajouter', methods=['POST'])
 def ajouter():
@@ -85,6 +88,7 @@ def ajouter():
         return render_template("erreur.html", erreur=erreur.msg)
     
 @app.route('/resume', methods=['POST'])
+#faire une page pour resumer la commande avant de lajouter dans la liste des commandes
 def resume():
     nom = request.form['nom']
     telephone = request.form['telephone']
@@ -115,6 +119,7 @@ def resume():
                            garnitures=garnitures, noms_garnitures=noms_garnitures)
 
 @app.route('/livraisons')
+#pour afficher toute les livraison qui sont en cour
 def livraisons():
     curseur = db.cursor(dictionary=True)
     requete = """
@@ -143,6 +148,7 @@ def livraisons():
 
 
 @app.route('/livrer/<int:id_attente>', methods=['POST'])
+#pour supprimer une commande des commandes a livre quand elle est livré
 def livrer(id_attente):
     requete = "DELETE FROM commandes_en_attente WHERE id = %(id_attente)s"
     parametres = {"id_attente": id_attente}
