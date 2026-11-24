@@ -143,7 +143,7 @@ def livraisons():
     curseur.execute(requete)
     donnees = curseur.fetchall()
     curseur.close()
-    return render_template("livraisons.html", data=donnees)
+    return render_template("livraisons.html", commandes=donnees)
     
 
 
